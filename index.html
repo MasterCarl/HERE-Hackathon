@@ -77,6 +77,12 @@
       });
     }
 
+    function getRouteMode(){
+      if(document.getElementById('modeCar').checked == true) return 'fastest;car'
+      if(document.getElementById('modeTransport').checked == true) return 'fastest;publicTransport'
+      if(document.getElementById('modePedestrian').checked == true) return 'fastest;pedestrian'
+    }
+
      // TODO: set markers of venues, including their places
 
     calculateAddRoute(platform, map, startpos, venueStoresPairs[bestIndex].position, getRouteMode());
@@ -94,8 +100,17 @@
 					<input type="text" id="storeTextInput" class="form-control" placeholder="e.g. McDonals's, Starbucks">
 				</div>
 			</div>
-			<div class="col-md-1">
-				<button type="button" id="actionButton" class="btn btn-primary">Calculate!</button>
+			<div class="col-md-2">
+        <div class="radio">
+        <label><input type="radio" id="modeCar">Car</label>
+        </div>
+        <div class="radio">
+          <label><input type="radio" id="modeTransport">Public transport</label>
+        </div>
+        <div class="radio disabled">
+          <label><input type="radio" id="modePedestrian">Walking</label>
+        </div>
+				<button type="button" id="actionButton" onclick="calculate" class="btn btn-primary">Calculate!</button>
 			</div>
 		</div>
 	</div>
