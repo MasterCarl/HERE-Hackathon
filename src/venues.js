@@ -32,6 +32,7 @@ $(document).ready(function() {
 
 function onDiscover(result) {
 	var size = result.results.items.length
+	Markers.clear();
 	for(var i = 0; i < size; i++) {
 		var venue = result.results.items[i]
 		var position = venue.position;
