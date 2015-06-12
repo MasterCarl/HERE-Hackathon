@@ -49,7 +49,7 @@ function onError(error) {
 		+ app_id
 		+ '&app_code='
 		+ app_code;
-	$.get(url, function ( result ) {
+	$.get(url).done(function( result ) {
 		signature = result.SignatureTokens.Signature;
 		policy = result.SignatureTokens.Policy;
 		key_pair_id = result.SignatureTokens['Key-Pair-Id'];
@@ -66,9 +66,21 @@ function onError(error) {
 		+ '&Key-Pair-Id='
 		+ key_pair_id;
 		
-		$.getJSON(url2, function ( result2 ) {
-			alert("WTF");
-			console.log(result2);
+		$.ajax({
+			url: url2,
+			success: function ( result2 ) {
+				var actualContents;
+				JSON.venues = function(foo, contents) {
+					actualContents = contents;
+				}
+				eval(result2);
+				alert("WTF");
+				console.log(actualContents);
+			},
+			error: function(error) {
+				console.log(error);
+			},
+			dataType: 'html'
 		});
 	});
  };
