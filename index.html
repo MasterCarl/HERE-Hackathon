@@ -15,6 +15,7 @@
     src="https://js.api.here.com/v3/3.0/mapsjs-ui.js"></script>
     <script type="text/javascript" charset="UTF-8"
     src="https://js.api.here.com/v3/3.0/mapsjs-mapevents.js"></script>
+
 	
 	<!-- jQuery -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -26,6 +27,7 @@
     href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"></link>
     <script
     src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
     
     <!-- Our stuff -->
     <script type="text/javascript" charset="UTF-8" src="src/venues.js"></script>
@@ -34,6 +36,7 @@
     <script type="text/javascript" charset="UTF-8" src="src/displayResults.js"></script>
     <script type="text/javascript" charset="UTF-8" src="src/utils.js"></script>
     <script type="text/javascript" charset="UTF-8" src="src/markers.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="src/geocode.js"></script>
   </head>
   <body style="height: 100%">
     <div id="map" style="width: 100%; height: 80%; background: grey" >
@@ -90,7 +93,8 @@
 				</div>
 				<div class="input-group">
 					<span class="input-group-addon">Location</span>
-					<input type="text" class="form-control" placeholder="Your current address">
+					<input type="text" id="addressInput" class="form-control" placeholder="Your current address">
+                  <button class="btn btn-default onclick="geocode(platform, map, document.getElementById('addressInput.innerHTML')" ">Center map</button>
 				</div>
 				<div class="input-group">
 					<span class="input-group-addon">Stores  </span>
@@ -99,13 +103,13 @@
 			</div>
 			<div class="col-md-2">
         <div class="radio">
-        <label><input type="radio" id="modeCar">Car</label>
+        <label><input type="radio" id="modeCar" name="optradio" checked="checked">Car</label>
         </div>
         <div class="radio">
-          <label><input type="radio" id="modeTransport">Public transport</label>
+          <label><input type="radio" id="modeTransport" name="optradio">Public transport</label>
         </div>
-        <div class="radio disabled">
-          <label><input type="radio" id="modePedestrian">Walking</label>
+        <div class="radio">
+          <label><input type="radio" id="modePedestrian" name="optradio">Walking</label>
         </div>
 				<button type="button" id="actionButton" onclick="calculate()" class="btn btn-primary">Calculate!</button>
 			</div>
