@@ -22,6 +22,10 @@ var MarkerManager = function(map) {
 		marker.setData(html);
 		group.addObject(marker);
 	};
+	
+	me.clear = function() {
+		group.removeAll();
+	}
 
 	return me;
 };
