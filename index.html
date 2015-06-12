@@ -88,20 +88,19 @@
             <div id="playground" style="width: 100%; height: 20%">
                 <div class="input-group">
                     <span class="input-group-addon">Stores</span>
-                    <input type="text" id="storeTextInput" class="form-control" placeholder="e.g. McDonals's, Starbucks">
+                    <input type="text" id="storeTextInput" class="form-control" placeholder="e.g. McDonalds's, Starbucks, HERE Maps">
                 </div>
                 <div class="input-group">
                     <span class="input-group-addon" id="basic-addon2">Bounding Box radius in m</span>
                     <input id="playground-input" type="text" class="form-control" placeholder="1000" aria-describedby="basic-addon1">
                 </div>
-
-                <form class="form-inline">
-                    <div class="input-group">
-                        <span class="input-group-addon">Location</span>
-                        <input type="text" id="addressInput" class="form-control" placeholder="Your current address">
-                    </div>
-                    <button class="btn btn-default" onclick="geocode(platform, map, $('addressInput').val())">Center map</button>
-                </form>
+                <div class="input-group">
+                    <span class="input-group-addon">Location</span>
+                    <input type="text" id="addressInput" class="form-control" placeholder="Your current address">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" onclick="geocode(platform, map, $('addressInput').val())">Center map</button>
+                    </span>
+                </div>
             </div>
         </div>
         <div class="col-md-2">
