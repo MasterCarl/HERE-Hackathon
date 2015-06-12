@@ -94,7 +94,7 @@
 				<div class="input-group">
 					<span class="input-group-addon">Location</span>
 					<input type="text" id="addressInput" class="form-control" placeholder="Your current address">
-                  <button class="btn btn-default onclick="geocode(platform, map, document.getElementById('addressInput.innerHTML')" ">Center map</button>
+                  <button class="btn btn-default" onclick="geocode(platform, map, $('addressInput').val())">Center map</button>
 				</div>
 				<div class="input-group">
 					<span class="input-group-addon">Stores  </span>
