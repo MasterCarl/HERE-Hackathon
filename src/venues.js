@@ -66,6 +66,10 @@ function addVenueLayer(map, platform, renderControls) {
 			// Increase global floor level on the venue provider
 			venueProvider.setCurrentLevel(venueProvider.getCurrentLevel() + 1);
 		},
+        'Reset': function () {
+            // Reset to ground floor on the venue provider
+            venueProvider.setCurrentLevel(0);
+        },
 		'-1 Level': function () {
 			// Decrease global floor level on the venue provider
 			venueProvider.setCurrentLevel(venueProvider.getCurrentLevel() - 1);
