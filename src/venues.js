@@ -1,5 +1,7 @@
 
 
-function getVenues(position, radius){
+function getVenues(platform, position, radius){
+
+	
 
 }
