@@ -33,7 +33,7 @@
     <script type="text/javascript" charset="UTF-8" src="src/matrices.js"></script>
     <script type="text/javascript" charset="UTF-8" src="src/displayResults.js"></script>
     <script type="text/javascript" charset="UTF-8" src="src/utils.js"></script>
-
+    <script type="text/javascript" charset="UTF-8" src="src/markers.js"></script>
   </head>
   <body style="height: 100%">
     <div id="map" style="width: 100%; height: 80%; background: grey" >
@@ -67,7 +67,10 @@
        addVenueLayer(map, platform, renderControls);
 	   
 	   
-    calculateAddRoute(platform, map, startpos, venueStoresPairs[bestIndex].position, getRouteMode());
+    //calculateAddRoute(platform, map, startpos, venueStoresPairs[bestIndex].position, getRouteMode());
+
+        var Markers = new MarkerManager(map);
+        Markers.add(37.794862, -122.39776445, 'yoloswag');
 	   
         //platform.getVenueService()
        var venues;
