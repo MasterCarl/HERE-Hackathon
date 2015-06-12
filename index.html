@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html style="height: 100%">
-  <head>
+	<head>
+	
     <meta name="viewport" content="initial-scale=1.0, width=device-width height=device-height" />
     
     <!-- HERE APIs -->
@@ -14,6 +15,9 @@
     src="https://js.api.here.com/v3/3.0/mapsjs-ui.js"></script>
     <script type="text/javascript" charset="UTF-8"
     src="https://js.api.here.com/v3/3.0/mapsjs-mapevents.js"></script>
+	
+	<!-- jQuery -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     
     <!-- Bootstrap -->
     <link rel="stylesheet"
@@ -32,6 +36,30 @@
   <body style="height: 100%">
     <div id="map" style="width: 100%; height: 80%; background: grey" >
       <script  type="text/javascript" charset="UTF-8" >
+	  
+       var venueStoresPairs = [];
+       var bestIndex;
+	   
+       function calculate() {
+         sortVenues(platform, startpos, getRouteMode(), venues, function(sortedVenues) {
+           var i;
+           for (i = 0; i < sortedVenues.length; i++) {
+             var venueStores = {};
+             venueStores['venue'] = sortedVenue[i];
+       
+             var stores = [];
+             // get stores
+       
+           }
+         });
+       }
+	   
+       function getRouteMode(){
+         if(document.getElementById('modeCar').checked == true) return 'fastest;car'
+         if(document.getElementById('modeTransport').checked == true) return 'fastest;publicTransport'
+         if(document.getElementById('modePedestrian').checked == true) return 'fastest;pedestrian'
+       }
+	
         // initialize communication with the platform
        var platform = new H.service.Platform({
          app_id: '***REMOVED***',
@@ -52,16 +80,28 @@
        var ui = H.ui.UI.createDefault(map, defaultLayers);
         // Add venue layer
        addVenueLayer(map, platform, renderControls);
+	   
+	   
+    calculateAddRoute(platform, map, startpos, venueStoresPairs[bestIndex].position, getRouteMode());
+	   
         //platform.getVenueService()
        var venues;
       </script>
       
     </div>
     <br>
+	
+	
     
 	<div id="settings" class="container" style="width: 100%; height: 20%">
 		<div class="row">
 			<div class="col-md-8">
+				<div id="playground" style="width: 100%; height: 20%">
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon2">Bounding Box radius in m</span>
+						<input id="playground-input" type="text" class="form-control" placeholder="1000" aria-describedby="basic-addon1">
+					</div>
+				</div>
 				<div class="input-group">
 					<span class="input-group-addon">Location</span>
 					<input type="text" class="form-control" placeholder="Your current address">
@@ -71,8 +111,17 @@
 					<input type="text" id="storeTextInput" class="form-control" placeholder="e.g. McDonals's, Starbucks">
 				</div>
 			</div>
-			<div class="col-md-1">
-				<button type="button" id="actionButton" class="btn btn-primary">Calculate!</button>
+			<div class="col-md-2">
+        <div class="radio">
+        <label><input type="radio" id="modeCar">Car</label>
+        </div>
+        <div class="radio">
+          <label><input type="radio" id="modeTransport">Public transport</label>
+        </div>
+        <div class="radio disabled">
+          <label><input type="radio" id="modePedestrian">Walking</label>
+        </div>
+				<button type="button" id="actionButton" onclick="calculate" class="btn btn-primary">Calculate!</button>
 			</div>
 		</div>
 	</div>
