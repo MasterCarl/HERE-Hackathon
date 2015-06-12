@@ -100,7 +100,7 @@
                         <span class="input-group-addon">Location</span>
                         <input type="text" id="addressInput" class="form-control" placeholder="Your current address">
                     </div>
-                    <button class="btn btn-default" onclick="geocode(platform, map, $('addressInput').val())">Center map</button>
+                    <button class="btn btn-default" onclick="geocode(platform, map, $('#addressInput').val()); return false">Center map</button>
                 </form>
             </div>
         </div>
