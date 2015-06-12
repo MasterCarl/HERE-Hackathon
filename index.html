@@ -1,34 +1,34 @@
 <!DOCTYPE html>
 <html style="height: 100%">
-	<head>
-	
+<head>
+
     <meta name="viewport" content="initial-scale=1.0, width=device-width height=device-height" />
-    
+
     <!-- HERE APIs -->
     <link rel="stylesheet" type="text/css"
-    href="https://js.api.here.com/v3/3.0/mapsjs-ui.css"></link>
+          href="https://js.api.here.com/v3/3.0/mapsjs-ui.css"></link>
     <script type="text/javascript" charset="UTF-8"
-    src="https://js.api.here.com/v3/3.0/mapsjs-core.js"></script>
+            src="https://js.api.here.com/v3/3.0/mapsjs-core.js"></script>
     <script type="text/javascript" charset="UTF-8"
-    src="https://js.api.here.com/v3/3.0/mapsjs-service.js"></script>
+            src="https://js.api.here.com/v3/3.0/mapsjs-service.js"></script>
     <script type="text/javascript" charset="UTF-8"
-    src="https://js.api.here.com/v3/3.0/mapsjs-ui.js"></script>
+            src="https://js.api.here.com/v3/3.0/mapsjs-ui.js"></script>
     <script type="text/javascript" charset="UTF-8"
-    src="https://js.api.here.com/v3/3.0/mapsjs-mapevents.js"></script>
+            src="https://js.api.here.com/v3/3.0/mapsjs-mapevents.js"></script>
 
-	
-	<!-- jQuery -->
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    
+
+    <!-- jQuery -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
     <!-- Bootstrap -->
     <link rel="stylesheet"
-    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"></link>
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"></link>
     <link rel="stylesheet"
-    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"></link>
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"></link>
     <script
-    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
-    
+
     <!-- Our stuff -->
     <script type="text/javascript" charset="UTF-8" src="src/venues.js"></script>
     <script type="text/javascript" charset="UTF-8" src="src/controls.js"></script>
@@ -37,83 +37,86 @@
     <script type="text/javascript" charset="UTF-8" src="src/utils.js"></script>
     <script type="text/javascript" charset="UTF-8" src="src/markers.js"></script>
     <script type="text/javascript" charset="UTF-8" src="src/geocode.js"></script>
-  </head>
-  <body style="height: 100%">
-    <div id="map" style="width: 100%; height: 80%; background: grey" >
-      <script  type="text/javascript" charset="UTF-8" >
-	   
-       function getRouteMode(){
-         if(document.getElementById('modeCar').checked == true) return 'fastest;car'
-         if(document.getElementById('modeTransport').checked == true) return 'fastest;publicTransport'
-         if(document.getElementById('modePedestrian').checked == true) return 'fastest;pedestrian'
-       }
-	
+</head>
+<body style="height: 100%">
+<div id="map" style="width: 100%; height: 80%; background: grey" >
+    <script  type="text/javascript" charset="UTF-8" >
+
+        function getRouteMode(){
+            if(document.getElementById('modeCar').checked == true) return 'fastest;car'
+            if(document.getElementById('modeTransport').checked == true) return 'fastest;publicTransport'
+            if(document.getElementById('modePedestrian').checked == true) return 'fastest;pedestrian'
+        }
+
         // initialize communication with the platform
-       var platform = new H.service.Platform({
-         app_id: '***REMOVED***',
-         app_code: '***REMOVED***',
-         useCIT: false,
-         useHTTPS: true
-       });
+        var platform = new H.service.Platform({
+            app_id: '***REMOVED***',
+            app_code: '***REMOVED***',
+            useCIT: false,
+            useHTTPS: true
+        });
         // Map, Satellite, Terrain
-       var defaultLayers = platform.createDefaultLayers();
+        var defaultLayers = platform.createDefaultLayers();
         // initialize a map  - not specificing a location will give a whole world view.
-       var map = new H.Map(document.getElementById('map'), defaultLayers.normal.map, {
-         center: new H.geo.Point(37.794862, -122.39776445),
-         zoom: 19
-       });
-	   //Marker manager
+        var map = new H.Map(document.getElementById('map'), defaultLayers.normal.map, {
+            center: new H.geo.Point(37.794862, -122.39776445),
+            zoom: 19
+        });
+        //Marker manager
         var Markers = new MarkerManager(map);
         //Standard behavior
-       var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+        var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
         // Create the default UI components
-       var ui = H.ui.UI.createDefault(map, defaultLayers);
+        var ui = H.ui.UI.createDefault(map, defaultLayers);
         // Add venue layer
-       addVenueLayer(map, platform, renderControls);
-	
-	   
-    //calculateAddRoute(platform, map, startpos, venueStoresPairs[bestIndex].position, getRouteMode());
-	   
-       var venues;
-      </script>
-      
+        addVenueLayer(map, platform, renderControls);
+
+
+        //calculateAddRoute(platform, map, startpos, venueStoresPairs[bestIndex].position, getRouteMode());
+
+        var venues;
+    </script>
+
+</div>
+<br>
+
+
+
+<div id="settings" class="container" style="width: 100%; height: 20%">
+    <div class="row">
+        <div class="col-md-8">
+            <div id="playground" style="width: 100%; height: 20%">
+                <div class="input-group">
+                    <span class="input-group-addon">Stores</span>
+                    <input type="text" id="storeTextInput" class="form-control" placeholder="e.g. McDonals's, Starbucks">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon2">Bounding Box radius in m</span>
+                    <input id="playground-input" type="text" class="form-control" placeholder="1000" aria-describedby="basic-addon1">
+                </div>
+
+                <form class="form-inline">
+                    <div class="input-group">
+                        <span class="input-group-addon">Location</span>
+                        <input type="text" id="addressInput" class="form-control" placeholder="Your current address">
+                    </div>
+                    <button class="btn btn-default" onclick="geocode(platform, map, $('addressInput').val())">Center map</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="radio">
+                <label><input type="radio" id="modeCar" name="optradio" checked="checked">Car</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="modeTransport" name="optradio">Public transport</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="modePedestrian" name="optradio">Walking</label>
+            </div>
+            <button type="button" id="actionButton" onclick="calculate()" class="btn btn-primary">Calculate!</button>
+        </div>
     </div>
-    <br>
-	
-	
-    
-	<div id="settings" class="container" style="width: 100%; height: 20%">
-		<div class="row">
-			<div class="col-md-8">
-				<div id="playground" style="width: 100%; height: 20%">
-					<div class="input-group">
-						<span class="input-group-addon" id="basic-addon2">Bounding Box radius in m</span>
-						<input id="playground-input" type="text" class="form-control" placeholder="1000" aria-describedby="basic-addon1">
-					</div>
-				</div>
-				<div class="input-group">
-					<span class="input-group-addon">Location</span>
-					<input type="text" id="addressInput" class="form-control" placeholder="Your current address">
-                  <button class="btn btn-default" onclick="geocode(platform, map, $('addressInput').val())">Center map</button>
-				</div>
-				<div class="input-group">
-					<span class="input-group-addon">Stores  </span>
-					<input type="text" id="storeTextInput" class="form-control" placeholder="e.g. McDonals's, Starbucks">
-				</div>
-			</div>
-			<div class="col-md-2">
-        <div class="radio">
-        <label><input type="radio" id="modeCar" name="optradio" checked="checked">Car</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" id="modeTransport" name="optradio">Public transport</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" id="modePedestrian" name="optradio">Walking</label>
-        </div>
-				<button type="button" id="actionButton" onclick="calculate()" class="btn btn-primary">Calculate!</button>
-			</div>
-		</div>
-	</div>
-  </body>
+</div>
+</body>
 </html>
