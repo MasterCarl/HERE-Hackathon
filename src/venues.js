@@ -1,17 +1,15 @@
-var varMap, varVenueService;
-
 //Get venue
 $(document).ready(function() {
 	var toSubmit = function() {
 		var radius = parseInt($("#playground-input").val());
-		var center = varMap.getCenter();
+		var center = map.getCenter();
 		var upperLeft = center.walk(315, radius);
 		var lowerRight = center.walk(135, radius);
 		
 		//var boundingBox = new H.geo.Rect(upperLeft.lat, upperLeft.lng, lowerRight.lat, lowerRight.lng);
-		//varMap.addObject(new H.map.Rect(boundingBox));
+		//map.addObject(new H.map.Rect(boundingBox));
 		
-		varVenueService.discover({
+		venueService.discover({
 			at: upperLeft.lat
 				+ ',' + upperLeft.lng
 				+ ',' + lowerRight.lat
@@ -35,8 +33,9 @@ $(document).ready(function() {
 function onDiscover(result) {
 	var size = result.results.items.length
 	for(var i = 0; i < size; i++) {
-		var position = result.results.items[i].position;
-		varMap.addObject(new H.map.Marker({lat: position[1], lng: position[0]}));
+		var venue = result.results.items[i]
+		var position = venue.position;
+        Markers.add(position[1], position[0], venue.title);
 	}
 	//map.setCenter({lat: position[1], lng: position[0]});
 };
@@ -50,19 +49,18 @@ function onError(error) {
  * and change a floor level for all venues.
  */
 function addVenueLayer(map, platform, renderControls) {
-	varMap = map;
-	varVenueService = platform.getVenueService();
+	venueService = platform.getVenueService();
 	// Create a tile layer, which will display venues
-	var customVenueLayer = varVenueService.createTileLayer({});
+	var customVenueLayer = venueService.createTileLayer({});
 	
 	// Get TileProvider from Venue Layer
 	var venueProvider = customVenueLayer.getProvider();
 	// Add venues layer to the map
-	varMap.addLayer(customVenueLayer);
+	map.addLayer(customVenueLayer);
 	
 	// Use the custom function (i.e. not a part of the API)
 	// to render buttons with corresponding click callbacks
-	renderControls(varMap, 'Change floor', {
+	renderControls(map, 'Change floor', {
 		'+1 Level': function () {
 			// Increase global floor level on the venue provider
 			venueProvider.setCurrentLevel(venueProvider.getCurrentLevel() + 1);
