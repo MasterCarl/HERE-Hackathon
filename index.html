@@ -57,26 +57,8 @@
       </script>
       
     </div>
-    <br/>
-    <div id="settings" class="container" style="width: 100%; height: 20%">
-      <div class="col-md-4">
-        <div class="input-group">
-          <span class="input-group-addon">Location</span>
-          <input type="text" class="form-control" placeholder="Your current address">
-        </div>
-        <div class="input-group">
-          <span class="input-group-addon">Store</span>
-          <input type="text" class="form-control" placeholder="What are you looking for?">
-        </div>
-        <div class="input-group">
-          <span class="input-group-addon">Store</span>
-          <input type="text" class="form-control" placeholder="What are you looking for?">
-        </div>
-      </div>
-      <div class="col-md-1">
-        <button type="button" id="actionButton" class="btn btn-default" onclick="calculate()">Calculate!</button>
-      </div>
-    </div>
+    <br>
+
     <script>
     var venueStoresPairs = [];
     var bestIndex;
@@ -100,12 +82,22 @@
     calculateAddRoute(platform, map, startpos, venueStoresPairs[bestIndex].position, getRouteMode());
     
     </script>
-    
-    <div id="settings" style="width: 100%; height: 20%">
-      <div class="input-group">
-        <span class="input-group-addon" id="basic-addon1">Location</span>
-        <input type="text" class="form-control" placeholder="Enter your current location..." aria-describedby="basic-addon1">
-      </div>
-    </div>
+	<div id="settings" class="container" style="width: 100%; height: 20%">
+		<div class="row">
+			<div class="col-md-8">
+				<div class="input-group">
+					<span class="input-group-addon">Location</span>
+					<input type="text" class="form-control" placeholder="Your current address">
+				</div>
+				<div class="input-group">
+					<span class="input-group-addon">Stores  </span>
+					<input type="text" id="storeTextInput" class="form-control" placeholder="e.g. McDonals's, Starbucks">
+				</div>
+			</div>
+			<div class="col-md-1">
+				<button type="button" id="actionButton" class="btn btn-primary">Calculate!</button>
+			</div>
+		</div>
+	</div>
   </body>
 </html>
