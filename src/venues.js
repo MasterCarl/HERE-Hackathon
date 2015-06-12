@@ -1,40 +1,39 @@
+var shopList;
+
 //Get venue
-$(document).ready(function() {
-	var toSubmit = function() {
-		var radius = parseInt($("#playground-input").val());
-		var center = map.getCenter();
-		var upperLeft = center.walk(315, radius);
-		var lowerRight = center.walk(135, radius);
-		
-		//var boundingBox = new H.geo.Rect(upperLeft.lat, upperLeft.lng, lowerRight.lat, lowerRight.lng);
-		//map.addObject(new H.map.Rect(boundingBox));
-		
-		venueService.discover({
-			at: upperLeft.lat
-				+ ',' + upperLeft.lng
-				+ ',' + lowerRight.lat
-				+ ',' + lowerRight.lng
-			},
-			onDiscover,
-			onError
-		);
-	};
-	
-	var enterPressed = function() {
-		$('#playground-input').keyup(function(event) {
-			if(event.which == 13) {
-				toSubmit();
-			}
-		});
-	};
-	enterPressed();
+$(function() {
+      $("#actionButton").click( function() {
+			//shop list
+			var inputShopList = $("#storeTextInput").val();
+			var shopList = inputShopList.split(', ');
+			
+			//venues
+			var radius = parseInt($("#radius").val());
+			var center = map.getCenter();
+			var upperLeft = center.walk(315, radius);
+			var lowerRight = center.walk(135, radius);
+			
+			venueService.discover({
+				at: upperLeft.lat
+					+ ',' + upperLeft.lng
+					+ ',' + lowerRight.lat
+					+ ',' + lowerRight.lng
+				},
+				onDiscover,
+				onError
+			);
+           }
+      );
 });
 
 function onDiscover(result) {
 	var size = result.results.items.length
+	var venueList = new H.map.Group;
 	Markers.clear();
 	for(var i = 0; i < size; i++) {
-		var venue = result.results.items[i]
+		var venue = result.results.items[i];
+		getVenueDetailsURL(venue.id);
+		
 		var position = venue.position;
         Markers.add(position[1], position[0], venue.title);
 	}
@@ -43,7 +42,44 @@ function onDiscover(result) {
 
 function onError(error) {
 	alert(error);
-}
+};
+ 
+ function setSignatureTokens(venueID) {
+	var url = 'https://signature.venue.maps.cit.api.here.com/venues/signature/v1?app_id='
+		+ app_id
+		+ '&app_code='
+		+ app_code;
+	$.get(url, function ( result ) {
+		signature = result.SignatureTokens.Signature;
+		policy = result.SignatureTokens.Policy;
+		key_pair_id = result.SignatureTokens['Key-Pair-Id'];
+		var url2 = 'https://static-1.venue.maps.cit.api.here.com/1/models-poi/'
+		+ venueID
+		+ '.js?app_id='
+		+ app_id
+		+ '&app_code='
+		+ app_code
+		+ '&Signature='
+		+ signature
+		+ '&Policy='
+		+ policy
+		+ '&Key-Pair-Id='
+		+ key_pair_id;
+		
+		$.getJSON(url2, function ( result2 ) {
+			alert("WTF");
+			console.log(result2);
+		});
+	});
+ };
+
+function getVenueDetailsURL(venueID) {
+	setSignatureTokens(venueID);
+	
+};
+
+function venueContainsShop(venue, shopList) {
+};
 
 /**
  * Shows how to add venue objects to the map, change default styling
