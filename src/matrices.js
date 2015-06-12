@@ -8,8 +8,8 @@ function sortVenues(platform, startpos, transMode, venues, callback) {
 
 
   var i;
-  for (i = 0; i < venuesStoresMap.length; i++) {
-    url.query += encodeURIComponent("&destination" + i + "=" + venues.venue.position[0] + "," + venues[i].venue.position[1]);
+  for (i = 0; i < venues.length; i++) {
+    url.query += encodeURIComponent("&destination" + i + "=" + venues[i].venue.position[0] + "," + venues[i].venue.position[1]);
   }
 
   var request = new XMLHttpRequest();
