@@ -2,3 +2,19 @@ App_Id		***REMOVED***
 App_Code	***REMOVED***
 
 python -m SimpleHTTPServer 8000
+
+{
+  "venue": {
+	"id": 124145,
+	"position": 34.4353,23.325352
+  },
+  "stores": [   
+		{ 
+			"position": 34.242,21.41242,
+			"title": "Starbucks"
+		},
+		{
+		//more storedata
+		}
+	    ]
+}
