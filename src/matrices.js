@@ -1,8 +1,6 @@
-var URI = require('URI');
-
 function sortVenues(platform, startpos, transportation, venues, callback) {
 
-  var url = URI("https://route.st.nlp.nokia.com/routing/6.2/calculatematrix.json");
+  var url = "https://route.st.nlp.nokia.com/routing/6.2/calculatematrix.json?";
   url.query += encodeURIComponent("app_id=" + platform.app_id);
   url.query += encodeURIComponent("&app_code=" + platform.app_code);
   url.query += encodeURIComponent("&mode=" + transportation + "fastest,traffic:disable");
