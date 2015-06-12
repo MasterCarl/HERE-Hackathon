@@ -1,4 +1,6 @@
- function calculate() {
+ 
+
+ function calculate(map, platform, startpos) {
    sortVenues(platform, startpos, getRouteMode(), venues, function(sortedVenues) {
      var venueStoresPairs = [],
        bestIndex, i;
@@ -11,10 +13,9 @@
 
      }
 
-
      // TODO: set markers of venues, including their places
-     var marker = new H.map.object();
-     map.addObject(marker);
+     //var marker = new H.map.object();
+     //map.addObject(marker);
 
      calculateAddRoute(platform, map, startpos, venueStoresPairs[bestIndex].position, getRouteMode());
    });
