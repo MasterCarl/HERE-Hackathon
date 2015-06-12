@@ -6,7 +6,6 @@ function sortVenues(platform, startpos, transMode, venues, callback) {
   url.query += encodeURIComponent("&mode=" + transMode + "fastest,traffic:disable");
   url.query += encodeURIComponent("&start0=" + startpos);
 
-
   var i;
   for (i = 0; i < venues.length; i++) {
     url.query += encodeURIComponent("&destination" + i + "=" + venues[i].venue.position[0] + "," + venues[i].venue.position[1]);
@@ -34,6 +33,7 @@ function sortVenues(platform, startpos, transMode, venues, callback) {
       var sortedVenues = [];
       for (i = 0; i < venues.length; i++) {
         sortedVenues[i] = venues[matrixList[i].DestinationIndex];
+        sortedVenues[i]['time'] = matrixList[i].DestinationIndex.BaseTime;
       }
 
       callback(sortedVenues);
