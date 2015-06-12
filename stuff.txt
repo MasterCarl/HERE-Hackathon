@@ -1,0 +1,4 @@
+App_Id		***REMOVED***
+App_Code	***REMOVED***
+
+python -m SimpleHTTPServer 8000
