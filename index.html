@@ -59,6 +59,8 @@
          center: new H.geo.Point(37.794862, -122.39776445),
          zoom: 19
        });
+	   //Marker manager
+        var Markers = new MarkerManager(map);
         //Standard behavior
        var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
         // Create the default UI components
@@ -68,9 +70,6 @@
 	
 	   
     //calculateAddRoute(platform, map, startpos, venueStoresPairs[bestIndex].position, getRouteMode());
-
-        var Markers = new MarkerManager(map);
-        Markers.add(37.794862, -122.39776445, 'yoloswag');
 	   
        var venues;
       </script>
