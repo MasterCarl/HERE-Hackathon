@@ -7,7 +7,7 @@ function geocode(platform, map, stext) {
 
   geocoder.geocode(
     geocodingParameters,
-    onSuccess,
+    onGeoCodeSuccess,
     onError
   );
 }
@@ -17,13 +17,13 @@ function geocode(platform, map, stext) {
  *
  * see: http://developer.here.com/rest-apis/documentation/geocoder/topics/resource-type-response-geocode.html
  */
-function onSuccess(result) {
+function onGeoCodeSuccess(result) {
   var location = result.response.view[0].result[0].location;
   var coord = {
     lat: location.displayPosition.latitude,
     lng: location.displayPosition.longitude
   };
   map.setCenter(coord);
-  var marker = new H.map.Marker(coord);
-  map.addObject(marker);
+  startpos2 = coord;
+  Markers.add(coord.lat, coord.lng, "You");
 }

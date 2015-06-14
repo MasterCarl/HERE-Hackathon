@@ -1,8 +1,10 @@
+var lastPolyline;
+
 function addResultsToMap(map, results) {
   for (i = 0; i < results.length; i++) {
     var marker = new H.map.Marker({
-      lat: results[i].position[0],
-      lng: results[i].position[1]
+      lat: results[i].position[1],
+      lng: results[i].position[0]
     });
     map.addObject(marker);
   }
@@ -15,14 +17,14 @@ function calculateAddRoute(platform, map, from, to, mode) {
       representation: 'display',
       routeattributes: 'waypoints,summary,shape,legs',
       maneuverattributes: 'direction,action',
-      waypoint0: from,
-      waypoint1: to
+      waypoint0: from.lat + "," + from.lng,
+      waypoint1: to[1] + "," + to[0]
     };
 
 
   router.calculateRoute(
     routeRequestParams,
-    onSuccess,
+    onDisplayResultsSuccess,
     onError
   );
 }
@@ -33,9 +35,8 @@ function calculateAddRoute(platform, map, from, to, mode) {
  *
  * see: http://developer.here.com/rest-apis/documentation/routing/topics/resource-type-calculate-route.html
  */
-function onSuccess(result) {
+function onDisplayResultsSuccess(result) {
   var route = result.response.route[0];
-
 
   var strip = new H.geo.Strip(),
     routeShape = route.shape,
@@ -53,6 +54,10 @@ function onSuccess(result) {
     }
   });
   // Add the polyline to the map
+
+  if (lastPolyline != null)
+    map.removeObject(lastPolyline);
+  lastPolyline = polyline;
   map.addObject(polyline);
   // And zoom to its bounding rectangle
   map.setViewBounds(polyline.getBounds(), true);

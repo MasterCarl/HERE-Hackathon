@@ -1,22 +1,28 @@
 function sortVenues(platform, startpos, transMode, venues, callback) {
 
-  var url = "https://route.st.nlp.nokia.com/routing/6.2/calculatematrix.json?";
-  url.query += encodeURIComponent("app_id=" + platform.app_id);
-  url.query += encodeURIComponent("&app_code=" + platform.app_code);
-  url.query += encodeURIComponent("&mode=" + transMode + "fastest,traffic:disable");
-  url.query += encodeURIComponent("&start0=" + startpos);
+  var dataObj = {}
+  dataObj['app_id'] = "***REMOVED***";
+  dataObj['app_code'] = "***REMOVED***";
+  dataObj['mode'] = transMode + "traffic:disabled;";
+  dataObj['start0'] = startpos.lat + "," + startpos.lng;
 
   var i;
   for (i = 0; i < venues.length; i++) {
-    url.query += encodeURIComponent("&destination" + i + "=" + venues[i].venue.position[0] + "," + venues[i].venue.position[1]);
+    var pos2 = venues[i].venue.position[0];
+    var pos1 = venues[i].venue.position[1];
+
+    dataObj['destination' + i] = pos1 + "," + pos2;
   }
 
-  var request = new XMLHttpRequest();
-  request.responseType = 'json';
-  request.onreadystatechange = function(data) {
-    if (request.readyState === 4 && request.status === 200) {
-
-      var matrixList = JSON.parse(data).Response.MatrixEntry;
+  $.ajax({
+    url: "https://route.st.nlp.nokia.com/routing/6.2/calculatematrix.json",
+    dataType: 'jsonp',
+    jsonp: 'jsoncallback',
+    type: "GET",
+    data: dataObj,
+    success: function(data) {
+      console.log(JSON.stringify(data));
+      var matrixList = data.Response.MatrixEntry;
       // If a venue is less than 10 minutes away, but has more desired store, it will be classified as nearer
       matrixList.sort(function(a, b) {
         var timeDiff = a.Route.Summary.BaseTime - b.Route.Summary.BaseTime;
@@ -33,13 +39,13 @@ function sortVenues(platform, startpos, transMode, venues, callback) {
       var sortedVenues = [];
       for (i = 0; i < venues.length; i++) {
         sortedVenues[i] = venues[matrixList[i].DestinationIndex];
-        sortedVenues[i]['time'] = matrixList[i].DestinationIndex.BaseTime;
+        sortedVenues[i]['time'] = matrixList[i].Route.Summary.BaseTime;
       }
 
       callback(sortedVenues);
+    },
+    error: function(error) {
+      console.log(error);
     }
-  };
-
-  request.open("GET", url, true);
-  request.send();
+  });
 }

@@ -34,7 +34,6 @@
     <script type="text/javascript" charset="UTF-8" src="src/controls.js"></script>
     <script type="text/javascript" charset="UTF-8" src="src/matrices.js"></script>
     <script type="text/javascript" charset="UTF-8" src="src/displayResults.js"></script>
-    <script type="text/javascript" charset="UTF-8" src="src/utils.js"></script>
     <script type="text/javascript" charset="UTF-8" src="src/markers.js"></script>
     <script type="text/javascript" charset="UTF-8" src="src/geocode.js"></script>
 </head>
@@ -48,10 +47,12 @@
     <script type="text/javascript" charset="UTF-8" >
 
         function getRouteMode(){
-            if(document.getElementById('modeCar').checked == true) return 'fastest;car'
-            if(document.getElementById('modeTransport').checked == true) return 'fastest;publicTransport'
-            if(document.getElementById('modePedestrian').checked == true) return 'fastest;pedestrian'
+            if(document.getElementById('modeCar').checked == true) return 'fastest;car;'
+            if(document.getElementById('modeTransport').checked == true) return 'fastest;publicTransport;'
+            if(document.getElementById('modePedestrian').checked == true) return 'fastest;pedestrian;'
         }
+
+        var venueStoreMap = [];
 
         // initialize communication with the platform
         var platform = new H.service.Platform({
@@ -67,6 +68,7 @@
             center: new H.geo.Point(37.794862, -122.39776445),
             zoom: 19
         });
+        var startpos2 = new H.geo.Point(37.794862, -122.39776445);
         //Marker manager
         var Markers = new MarkerManager(map);
         //Standard behavior
@@ -76,10 +78,7 @@
         // Add venue layer
         addVenueLayer(map, platform, renderControls);
 
-
         //calculateAddRoute(platform, map, startpos, venueStoresPairs[bestIndex].position, getRouteMode());
-
-        var venues;
     </script>
 
 </div>
@@ -97,7 +96,7 @@
                 </div>
                 <div class="input-group">
                     <span class="input-group-addon" id="basic-addon2">Bounding Box radius in m</span>
-                    <input id="playground-input" type="text" class="form-control" value="1000" aria-describedby="basic-addon1">
+                    <input id="playground-input" type="text" class="form-control" value="2000" aria-describedby="basic-addon1">
                 </div>
                 <div class="input-group">
                     <span class="input-group-addon">Location</span>
@@ -130,7 +129,7 @@
             <div class="radio">
                 <label><input type="radio" id="modePedestrian" name="optradio">Walking</label>
             </div>
-            <button type="button" id="actionButton" onclick="calculate()" class="btn btn-primary">Calculate!</button>
+            <button type="button" id="actionButton" onclick="calculate(platform, map, venueStoreMap, startpos2);" class="btn btn-primary">Calculate!</button>
         </div>
     </div>
 </div>
