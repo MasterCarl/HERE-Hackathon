@@ -1,8 +1,8 @@
 function sortVenues(platform, startpos, transMode, venues, callback) {
 
   var dataObj = {}
-  dataObj['app_id'] = "***REMOVED***";
-  dataObj['app_code'] = "***REMOVED***";
+  dataObj['app_id'] = "**REMOVED**";
+  dataObj['app_code'] = "**REMOVED**";
   dataObj['mode'] = transMode + "traffic:disabled;";
   dataObj['start0'] = startpos.lat + "," + startpos.lng;
 

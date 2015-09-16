@@ -52,8 +52,8 @@ function onError(error) {
 };
 
 function setSignatureTokens(venueID, venueStorePair) {
-  var app_id = "***REMOVED***";
-  var app_code = "***REMOVED***";
+  var app_id = "**REMOVED**";
+  var app_code = "**REMOVED**";
 
   var url = 'https://signature.venue.maps.cit.api.here.com/venues/signature/v1?app_id=' + app_id + '&app_code=' + app_code;
   $.get(url).done(function(result) {
